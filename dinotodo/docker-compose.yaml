@@ -1,0 +1,17 @@
+services:
+  postgres:
+    env_file:
+      - .env
+    container_name: 'Dinotodo_Database'
+    image: 'postgres:17.2'
+    environment:
+        POSTGRES_DB: ${DINOTODO_POSTGRESS_DB}
+        POSTGRES_USER: ${DINOTODO_POSTGRESS_USER}
+        POSTGRES_PASSWORD: ${DINOTODO_POSTGRESS_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata: {}
