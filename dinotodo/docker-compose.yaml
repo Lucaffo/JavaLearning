@@ -1,4 +1,20 @@
 services:
+  springbackend:
+    env_file:
+      - .env
+    container_name: 'Dinotodo_Backend'
+    image: 'openjdk:23-jdk-slim'
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+        DINOTODO_POSTGRESS_URL: ${DINOTODO_POSTGRESS_URL}
+        DINOTODO_POSTGRESS_DB: ${DINOTODO_POSTGRESS_DB}
+        DINOTODO_POSTGRESS_USER: ${DINOTODO_POSTGRESS_USER}
+        DINOTODO_POSTGRESS_PASSWORD: ${DINOTODO_POSTGRESS_PASSWORD}
+    depends_on:
+      - postgres
+
   postgres:
     env_file:
       - .env
