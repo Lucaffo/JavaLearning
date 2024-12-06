@@ -1,0 +1,18 @@
+spring:
+    profiles:
+        active: prod
+    application:
+        name: dinotodo
+    datasource:
+        url: ${DINOTODO_POSTGRESS_URL}
+        username: ${DINOTODO_POSTGRESS_USER}
+        password: ${DINOTODO_POSTGRESS_PASSWORD}
+        driver-class-name: org.postgresql.Driver
+    jpa:
+        hibernate:
+            ddl-auto: update
+        properties:
+          hibernate:
+              format_sql: true
+        database: postgresql
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
