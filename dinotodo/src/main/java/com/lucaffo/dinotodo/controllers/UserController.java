@@ -1,5 +1,8 @@
-package com.lucaffo.dinotodo.user;
+package com.lucaffo.dinotodo.controllers;
 
+import com.lucaffo.dinotodo.models.User;
+
+import com.lucaffo.dinotodo.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,40 +12,36 @@ import java.util.List;
 @RequestMapping("/api/users")
 public class UserController {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping
     public List<User> getAllUsers(){
-        return userRepository.findAll();
+        return userService.getAllUsers();
     }
 
     @GetMapping("/{id}")
     public User getUserById(@PathVariable Long id){
-        return userRepository.getReferenceById(id);
+        return userService.getUserById(id);
     }
 
     @PostMapping
     public User createNewUser(@RequestBody User user){
-        return userRepository.save(user);
+        return userService.createUser(user);
     }
 
-    // Modify an existing user by ID
     @PutMapping("/{id}")
     public User updateUser(@PathVariable Long id, @RequestBody User user){
-        User fetchUser = userRepository.findById(id).get();
-        fetchUser.setName(user.getName());
-        fetchUser.setEmail(user.getEmail());
-        return userRepository.save(fetchUser);
+        return userService.updateUser(id, user);
     }
 
     @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable Long id){
         try{
-            userRepository.deleteById(id);
+            userService.deleteUser(id);
             return "Deleted user";
         }catch(Exception e){
             return "User not found";

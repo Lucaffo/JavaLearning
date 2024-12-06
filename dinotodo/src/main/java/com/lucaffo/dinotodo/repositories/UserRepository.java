@@ -1,5 +1,6 @@
-package com.lucaffo.dinotodo.user;
+package com.lucaffo.dinotodo.repositories;
 
+import com.lucaffo.dinotodo.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

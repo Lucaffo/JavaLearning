@@ -1,4 +1,4 @@
-package com.lucaffo.dinotodo.user;
+package com.lucaffo.dinotodo.models;
 
 import jakarta.persistence.*;
 import lombok.Getter;
