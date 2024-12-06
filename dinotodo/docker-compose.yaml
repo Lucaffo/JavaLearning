@@ -12,6 +12,7 @@ services:
         DINOTODO_POSTGRESS_DB: ${DINOTODO_POSTGRESS_DB}
         DINOTODO_POSTGRESS_USER: ${DINOTODO_POSTGRESS_USER}
         DINOTODO_POSTGRESS_PASSWORD: ${DINOTODO_POSTGRESS_PASSWORD}
+    restart: unless-stopped
     depends_on:
       - postgres
 
@@ -26,6 +27,7 @@ services:
         POSTGRES_PASSWORD: ${DINOTODO_POSTGRESS_PASSWORD}
     ports:
       - "5432:5432"
+    restart: unless-stopped
     volumes:
       - pgdata:/var/lib/postgresql/data
 
