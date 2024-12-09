@@ -1,33 +1,39 @@
 services:
-  springbackend:
-    env_file:
-      - .env
-    container_name: 'Dinotodo_Backend'
-    image: 'openjdk:23-jdk-slim'
-    build: .
+  backend:
+    build: ./dinotodo-backend
+    container_name: 'dinotodo_backend'
     ports:
       - "8080:8080"
+    restart: unless-stopped
+    env_file:
+      - .env
     environment:
         DINOTODO_POSTGRESS_URL: ${DINOTODO_POSTGRESS_URL}
         DINOTODO_POSTGRESS_DB: ${DINOTODO_POSTGRESS_DB}
         DINOTODO_POSTGRESS_USER: ${DINOTODO_POSTGRESS_USER}
         DINOTODO_POSTGRESS_PASSWORD: ${DINOTODO_POSTGRESS_PASSWORD}
-    restart: unless-stopped
     depends_on:
-      - postgres
+      - database
 
-  postgres:
+  frontend:
+      build: ./dinotodo-frontend
+      container_name: 'dinotodo_frontend'
+      ports:
+          -   "80:80"
+      restart: unless-stopped
+
+  database:
+    container_name: 'dinotodo_database'
+    image: 'postgres:17.2'
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
     env_file:
       - .env
-    container_name: 'Dinotodo_Database'
-    image: 'postgres:17.2'
     environment:
         POSTGRES_DB: ${DINOTODO_POSTGRESS_DB}
         POSTGRES_USER: ${DINOTODO_POSTGRESS_USER}
         POSTGRES_PASSWORD: ${DINOTODO_POSTGRESS_PASSWORD}
-    ports:
-      - "5432:5432"
-    restart: unless-stopped
     volumes:
       - pgdata:/var/lib/postgresql/data
 
