@@ -20,4 +20,4 @@ WORKDIR /app
 COPY --from=builder /build/target/dinotodo-0.0.1-SNAPSHOT.jar app-1.0.0.jar
 
 # Esegui il jar copiato all'interno della cartella attuale
-CMD ["java", "-jar", "/app/app.jar"]
+CMD ["java", "-jar", "/app/app-1.0.0.jar"]
